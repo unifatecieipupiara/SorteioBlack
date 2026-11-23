@@ -62,7 +62,7 @@ Todas as configurações ficam nesse arquivo, com comentários em português. Pr
 - Coloque o logo em `assets/logo.png`. Enquanto ele não existir, o site escreve “UniFatecie” em texto no lugar.
 - Cores: `arte.corDestaque` (padrão laranja `#FF7A00`).
 - Marca d'água do fundo: `arte.textura` (padrão `'BLACK'`; use `''` para tirar).
-- Faixa do rodapé: `arte.rodape` (padrão `'@{perfil}'`; use `''` para tirar).
+- Espaço laranja do rodapé, onde o aluno coloca o sticker de menção: `arte.rodape` (padrão vazio; `texto: '@{perfil}'` escreve o @ dentro; `mostrar: false` tira o espaço).
 
 ### Usando uma arte do Canva (opcional)
 
@@ -70,7 +70,7 @@ Todas as configurações ficam nesse arquivo, com comentários em português. Pr
 2. Monte o fundo e **deixe livre a área da foto**. No padrão ela é um círculo com centro em **x 540, y 770** e raio **300 px**. Deixe livre também a área dos textos, de **y 1130 a 1625**.
 3. Exporte como **PNG** e salve como `assets/fundo.png`. Em `config.js`, coloque `fundo: 'assets/fundo.png'`.
 4. Se quiser um elemento **por cima** da foto (moldura com o miolo transparente), exporte só ela como PNG com fundo transparente → `assets/moldura.png` e `moldura: 'assets/moldura.png'`.
-5. Se o seu design já tiver o logo ou o rodapé, use `logo: ''`, `logoTextoReserva: ''` e/ou `rodape: ''`. Para tirar o anel laranja: `foto.borda: false`.
+5. Se o seu design já tiver o logo ou o rodapé, use `logo: ''`, `logoTextoReserva: ''` e/ou `rodape: { mostrar: false }`. Para tirar o anel laranja: `foto.borda: false`.
 6. Posições e tamanhos da foto, do logo e dos textos estão em `arte.foto`, `arte.logoPosicao` e `arte.textos`.
 
 ## Passo 4: Publicar o site (GitHub Pages, grátis)

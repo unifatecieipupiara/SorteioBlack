@@ -392,25 +392,31 @@
     ctx.restore();
   }
 
+  // Espaço laranja no rodapé (onde o aluno coloca o sticker de menção)
   function desenharRodape(ctx, A, perfil) {
-    if (!A.rodape) return;
-    const texto = A.rodape.replace('{perfil}', perfil || '');
+    const R = A.rodape;
+    if (!R || !R.mostrar) return;
+    const texto = (R.texto || '').replace('{perfil}', perfil || '');
     ctx.save();
     ctx.font = fonte(700, 34);
     const espaco = 4;
-    const chars = Array.from(texto);
-    const largura = chars.reduce((s, c) => s + ctx.measureText(c).width, 0) + espaco * (chars.length - 1);
-    const w = Math.min(A.largura - 80, largura + 90);
-    const h = 80;
-    const x = A.largura / 2 - w / 2;
-    const y = A.rodapeY - h / 2;
-    retanguloArredondado(ctx, x, y, w, h, h / 2);
+    let w = R.largura;
+    if (texto) {
+      const chars = Array.from(texto);
+      const larguraTexto = chars.reduce((s, c) => s + ctx.measureText(c).width, 0) + espaco * (chars.length - 1);
+      w = Math.max(w, larguraTexto + 90);
+    }
+    w = Math.min(A.largura - 80, w);
+    const h = R.altura;
+    retanguloArredondado(ctx, A.largura / 2 - w / 2, R.y - h / 2, w, h, h / 2);
     ctx.fillStyle = A.corDestaque;
     ctx.fill();
-    ctx.fillStyle = '#0a0a0a';
-    ctx.textBaseline = 'middle';
-    ctx.textAlign = 'center';
-    textoEspacado(ctx, texto, A.largura / 2, A.rodapeY + 2, espaco);
+    if (texto) {
+      ctx.fillStyle = '#0a0a0a';
+      ctx.textBaseline = 'middle';
+      ctx.textAlign = 'center';
+      textoEspacado(ctx, texto, A.largura / 2, R.y + 2, espaco);
+    }
     ctx.restore();
   }
 
