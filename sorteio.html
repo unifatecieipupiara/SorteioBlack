@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Painel do Sorteio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/sorteio.css">
+</head>
+<body>
+  <main class="painel">
+    <header class="painel-topo">
+      <div>
+        <p class="selo">Painel do organizador</p>
+        <h1 id="titulo">Sorteio</h1>
+      </div>
+    </header>
+
+    <section class="cartao" id="acesso">
+      <h3>1. Carregar participantes</h3>
+      <form id="form-acesso" class="linha-acesso">
+        <input id="chave" type="password" placeholder="Chave de administrador" autocomplete="current-password">
+        <button class="btn btn-primario" type="submit">Carregar</button>
+      </form>
+      <p id="msg-acesso" class="pequeno"></p>
+      <button id="btn-exemplo" class="btn btn-link" type="button" hidden>Testar com participantes de exemplo</button>
+    </section>
+
+    <section class="cartao" id="filtros" hidden>
+      <h3>2. Quem concorre</h3>
+      <div id="contagem" class="contagem"></div>
+      <div class="linha-filtros">
+        <label>Polo
+          <select id="filtro-polo"></select>
+        </label>
+        <label class="check">
+          <input id="sem-repetir" type="checkbox" checked>
+          Não sortear quem já ganhou
+        </label>
+      </div>
+    </section>
+
+    <section class="palco" id="palco" hidden>
+      <canvas id="confete"></canvas>
+      <p class="palco-rotulo" id="palco-rotulo">Pronto para sortear</p>
+      <div class="palco-numero" id="palco-numero">----</div>
+      <div class="palco-nome" id="palco-nome">&nbsp;</div>
+      <div class="palco-info" id="palco-info">&nbsp;</div>
+      <div class="palco-botoes">
+        <button class="btn btn-primario btn-sortear" id="btn-sortear">Sortear</button>
+        <button class="btn btn-secundario" id="btn-tela-cheia" type="button">Tela cheia</button>
+      </div>
+    </section>
+
+    <section class="cartao" id="vencedores" hidden>
+      <div class="linha-titulo">
+        <h3>Sorteados</h3>
+        <label class="check"><input id="mostrar-ra" type="checkbox"> Mostrar RA</label>
+      </div>
+      <p class="pequeno">Antes de anunciar, confira se o @ sorteado marcou o perfil nos stories (as menções chegam nas suas mensagens do Instagram).</p>
+      <ol id="lista-vencedores" class="lista-vencedores"></ol>
+    </section>
+  </main>
+
+  <script src="js/config.js"></script>
+  <script src="js/sorteio.js"></script>
+</body>
+</html>

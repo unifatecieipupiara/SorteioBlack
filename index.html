@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Sorteio Black UniFatecie</title>
+  <meta name="description" content="Crie sua arte de estudante, poste nos stories e concorra no Sorteio Black UniFatecie.">
+  <meta name="theme-color" content="#060606">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="aviso-app" class="aviso-app" hidden>
+    Você abriu pelo navegador do Instagram. Se tiver dificuldade para salvar a arte, toque em
+    <strong>⋯</strong> e escolha <strong>“Abrir no navegador”</strong>.
+  </div>
+
+  <main class="container">
+
+    <!-- ===================== INÍCIO ===================== -->
+    <section id="tela-inicio" class="tela ativa">
+      <img class="logo-topo" src="assets/logo.png" alt="UniFatecie" onerror="this.replaceWith(Object.assign(document.createElement('p'),{className:'logo-texto',textContent:'UniFatecie'}))">
+      <p class="selo">Exclusivo para alunos</p>
+      <h1 id="titulo-campanha">Sorteio Black UniFatecie</h1>
+      <p id="subtitulo-campanha" class="sub"></p>
+
+      <div class="cartao premio">
+        <span class="premio-rotulo">Prêmio</span>
+        <strong id="premio"></strong>
+        <span id="info-datas" class="premio-datas"></span>
+      </div>
+
+      <ol class="passos">
+        <li><span>1</span><div><strong>Identifique-se</strong> com nome, RA, polo e curso.</div></li>
+        <li><span>2</span><div><strong>Envie sua foto</strong> e gere a arte “Estudante de…”.</div></li>
+        <li><span>3</span><div><strong>Poste nos stories</strong> marcando <b class="perfil"></b>.</div></li>
+      </ol>
+
+      <div id="bloco-cta">
+        <button id="btn-participar" class="btn btn-primario">Quero participar</button>
+        <button class="btn btn-link" data-abrir-regulamento>Ler o regulamento</button>
+      </div>
+      <div id="bloco-encerrado" class="cartao alerta" hidden>
+        As inscrições foram encerradas. Obrigado a todos que participaram!
+      </div>
+    </section>
+
+    <!-- ===================== DADOS ===================== -->
+    <section id="tela-dados" class="tela">
+      <button class="voltar" data-ir="tela-inicio">‹ Voltar</button>
+      <p class="etapa">Etapa 1 de 2</p>
+      <h2>Seus dados</h2>
+
+      <form id="form-dados" novalidate>
+        <label class="campo">
+          <span>Nome completo</span>
+          <input id="nome" name="nome" type="text" autocomplete="name" maxlength="120" required>
+          <small class="erro" data-erro="nome"></small>
+        </label>
+
+        <label class="campo">
+          <span>RA</span>
+          <input id="ra" name="ra" type="text" inputmode="numeric" autocomplete="off" maxlength="20" required>
+          <small class="erro" data-erro="ra"></small>
+        </label>
+
+        <fieldset class="campo">
+          <legend>Polo</legend>
+          <div id="opcoes-polo" class="opcoes"></div>
+          <small class="erro" data-erro="polo"></small>
+        </fieldset>
+
+        <label class="campo">
+          <span>Curso</span>
+          <select id="curso" name="curso" required></select>
+          <small class="erro" data-erro="curso"></small>
+        </label>
+
+        <label class="campo" id="campo-outro-curso" hidden>
+          <span>Qual curso?</span>
+          <input id="outro-curso" name="outroCurso" type="text" maxlength="80">
+          <small class="erro" data-erro="outroCurso"></small>
+        </label>
+
+        <label class="campo">
+          <span>Seu @ no Instagram</span>
+          <div class="com-prefixo">
+            <b>@</b>
+            <input id="instagram" name="instagram" type="text" autocomplete="off" autocapitalize="none" spellcheck="false" maxlength="60" required>
+          </div>
+          <small class="dica">Usamos para conferir a sua postagem.</small>
+          <small class="erro" data-erro="instagram"></small>
+        </label>
+
+        <label class="aceite">
+          <input id="aceite" type="checkbox" required>
+          <span>Li e aceito o <button type="button" class="link-inline" data-abrir-regulamento>regulamento</button> e autorizo o uso dos meus dados exclusivamente para este sorteio.</span>
+        </label>
+        <small class="erro" data-erro="aceite"></small>
+
+        <button type="submit" class="btn btn-primario">Continuar</button>
+      </form>
+    </section>
+
+    <!-- ===================== FOTO ===================== -->
+    <section id="tela-foto" class="tela">
+      <button class="voltar" data-ir="tela-dados">‹ Voltar</button>
+      <p class="etapa">Etapa 2 de 2</p>
+      <h2>Sua foto</h2>
+      <p class="sub">Arraste para posicionar e use o controle (ou dois dedos) para dar zoom.</p>
+
+      <div class="moldura-preview">
+        <canvas id="canvas-arte" width="1080" height="1920" aria-label="Pré-visualização da arte"></canvas>
+      </div>
+
+      <input id="input-foto" type="file" accept="image/*" hidden>
+
+      <div class="controles" id="controles-foto" hidden>
+        <label class="zoom">
+          <span aria-hidden="true">−</span>
+          <input id="zoom" type="range" min="1" max="4" step="0.01" value="1" aria-label="Zoom da foto">
+          <span aria-hidden="true">+</span>
+        </label>
+        <div class="linha-botoes">
+          <button type="button" class="btn btn-secundario" id="btn-trocar">Trocar foto</button>
+          <button type="button" class="btn btn-secundario" id="btn-girar">Girar</button>
+        </div>
+      </div>
+
+      <button type="button" class="btn btn-secundario" id="btn-escolher">Escolher foto</button>
+      <button type="button" class="btn btn-primario" id="btn-gerar" disabled>Gerar minha arte</button>
+      <small class="erro centro" id="erro-foto"></small>
+    </section>
+
+    <!-- ===================== FINAL ===================== -->
+    <section id="tela-final" class="tela">
+      <div id="final-carregando" class="carregando">
+        <div class="spinner"></div>
+        <p>Registrando sua participação…</p>
+      </div>
+
+      <div id="final-erro" class="cartao alerta" hidden>
+        <p id="final-erro-msg">Não foi possível registrar sua participação.</p>
+        <button type="button" class="btn btn-primario" id="btn-tentar">Tentar novamente</button>
+        <button type="button" class="btn btn-link" data-ir="tela-foto">Voltar</button>
+      </div>
+
+      <div id="final-ok" hidden>
+        <h2 id="final-titulo">Pronto!</h2>
+        <p id="final-msg" class="sub"></p>
+        <div id="numero-sorte" class="numero-sorte" hidden>
+          <span>Seu número da sorte</span>
+          <strong id="numero"></strong>
+        </div>
+        <p id="aviso-demo" class="cartao alerta" hidden>
+          Modo de teste: o site ainda não está ligado à planilha, então esta inscrição não foi salva.
+        </p>
+
+        <img id="img-final" class="img-final" alt="Sua arte para os stories">
+        <small class="dica centro">Se os botões não funcionarem, pressione e segure a imagem para salvar.</small>
+
+        <button type="button" class="btn btn-primario" id="btn-compartilhar" hidden>Compartilhar nos stories</button>
+        <button type="button" class="btn btn-secundario" id="btn-baixar">Baixar imagem</button>
+
+        <div class="cartao checklist">
+          <h3>Agora falta pouco</h3>
+          <ol>
+            <li>Publique a arte nos seus <strong>stories</strong>.</li>
+            <li>Adicione o sticker <strong>“@ MENÇÃO”</strong> e marque <b class="perfil"></b>.
+              <button type="button" class="btn-copiar" id="btn-copiar">Copiar @</button></li>
+            <li>Deixe o story no ar por <strong>24 horas</strong>.</li>
+          </ol>
+          <p class="pequeno">Sem a marcação do perfil, a participação não é válida.</p>
+        </div>
+
+        <button type="button" class="btn btn-link" data-ir="tela-foto">Editar a arte</button>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="dlg-regulamento" class="dialogo">
+    <h3>Regulamento</h3>
+    <ol id="lista-regulamento"></ol>
+    <form method="dialog"><button class="btn btn-primario">Entendi</button></form>
+  </dialog>
+
+  <script src="js/config.js"></script>
+  <script src="js/arte.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
