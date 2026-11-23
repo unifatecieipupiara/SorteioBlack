@@ -19,7 +19,7 @@ var CONFIG = {
   // Senha do painel de sorteio (sorteio.html). TROQUE antes de implantar!
   CHAVE_ADMIN: 'TROQUE-ESTA-CHAVE',
   // Precisa ser exatamente igual à lista "polos" do js/config.js
-  POLOS: ['Polo Ipupiara', 'Polo NOME DO 2º POLO'],
+  POLOS: ['Polo Ipupiara-BA', 'Polo Barra do Mendes-BA'],
   // Data/hora limite para inscrições ('' = sem limite)
   ENCERRAMENTO: '2026-11-30T23:59:00-03:00',
 };

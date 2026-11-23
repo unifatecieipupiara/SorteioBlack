@@ -17,7 +17,10 @@ window.CONFIG = {
   campanha: {
     titulo: 'Sorteio Black UniFatecie',
     subtitulo: 'Crie sua arte de estudante, poste nos stories e concorra!',
-    premio: 'DEFINIR O PRÊMIO AQUI',
+    premio: '6 camisas UniFatecie',
+    premioDetalhe: '3 camisas para cada polo',
+    // Foto do prêmio exibida na tela inicial. Ex.: 'assets/premio.jpg' (vazio = sem foto)
+    imagemPremio: '',
     // Depois desta data/hora o site para de aceitar inscrições.
     // Formato: AAAA-MM-DDTHH:MM:SS-03:00 (horário de Brasília). Deixe '' para não encerrar.
     encerramento: '2026-11-30T23:59:00-03:00',
@@ -25,10 +28,10 @@ window.CONFIG = {
   },
 
   // Perfil que o aluno deve marcar nos stories (sem o @)
-  perfilInstagram: 'SEU_PERFIL',
+  perfilInstagram: 'unifatecie.ipupiara',
 
   // Os dois polos (o texto aparece igual na arte e na planilha)
-  polos: ['Polo Ipupiara', 'Polo NOME DO 2º POLO'],
+  polos: ['Polo Ipupiara-BA', 'Polo Barra do Mendes-BA'],
 
   // Lista de cursos (revise: deixe só os cursos oferecidos nos polos)
   cursos: [
@@ -56,7 +59,8 @@ window.CONFIG = {
 
   // Regras exibidas no site (botão "Regulamento")
   regulamento: [
-    'Podem participar alunos matriculados nos polos participantes.',
+    'Podem participar alunos matriculados nos polos Ipupiara-BA e Barra do Mendes-BA.',
+    'Serão sorteadas 6 camisas UniFatecie: 3 entre os alunos do Polo Ipupiara-BA e 3 entre os alunos do Polo Barra do Mendes-BA.',
     'Cada aluno participa uma única vez, identificado pelo RA.',
     'Para valer, é obrigatório publicar a arte nos stories do Instagram marcando o perfil indicado, até a data de encerramento.',
     'O story precisa ficar no ar por 24 horas. Contas que não marcarem o perfil serão desclassificadas.',
@@ -81,10 +85,13 @@ window.CONFIG = {
 
     // Logo da UniFatecie (de preferência PNG claro, fundo transparente)
     logo: 'assets/logo.png',
-    logoPosicao: { x: 540, y: 230, larguraMax: 460, alturaMax: 150 },
+    logoPosicao: { x: 540, y: 215, larguraMax: 560, alturaMax: 165 },
     logoTextoReserva: 'UniFatecie', // usado se o arquivo do logo não existir
 
-    corDestaque: '#FFC21A',
+    corDestaque: '#FF7A00',
+
+    // Palavra repetida em contorno no fundo padrão (marca d'água). '' = sem textura
+    textura: 'BLACK',
     corTexto: '#FFFFFF',
     corTextoSecundario: '#C9C9C9',
 
@@ -98,7 +105,7 @@ window.CONFIG = {
       largura: 640,
       altura: 760,
       cantos: 48,
-      borda: true, // anel dourado em volta da foto
+      borda: true, // anel laranja em volta da foto
     },
 
     // Bloco de textos (fica centralizado verticalmente entre "topo" e "base")
@@ -113,7 +120,7 @@ window.CONFIG = {
     },
 
     // Faixa no rodapé da arte. Use {perfil} para inserir o @. Vazio = sem faixa.
-    rodape: 'SORTEIO BLACK  •  @{perfil}',
+    rodape: '@{perfil}',
     rodapeY: 1695,
   },
 };

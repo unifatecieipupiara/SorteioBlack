@@ -11,18 +11,20 @@ As inscrições ficam numa **planilha do Google** (um RA = uma inscrição). No 
 
 ---
 
-## O que você precisa providenciar
+## O que já está configurado e o que falta
 
-| Item | Para quê | Onde colocar |
+| Item | Situação | Onde fica |
 |---|---|---|
-| **Logo UniFatecie** em PNG, versão clara (branca) com fundo transparente | Aparece na arte e no topo do site | `assets/logo.png` |
-| **@ do Instagram** que os alunos devem marcar | Arte, instruções e regulamento | `js/config.js` → `perfilInstagram` |
-| **Nome dos 2 polos** | Opções do formulário | `js/config.js` → `polos` **e** `apps-script/Codigo.gs` → `POLOS` |
-| **Lista de cursos** | Opções do formulário | `js/config.js` → `cursos` |
-| **Prêmio, prazo e data do sorteio** | Tela inicial e encerramento automático | `js/config.js` → `campanha` (e `ENCERRAMENTO` no `Codigo.gs`) |
-| **Regulamento** (revisar o texto) | Botão “Regulamento” | `js/config.js` → `regulamento` |
-| Uma **conta Google** | Planilha e banco de dados | — |
-| *(Opcional)* **Fundo/moldura feitos no Canva** | Trocar o visual padrão da arte | `assets/fundo.png` / `assets/moldura.png` |
+| Logo UniFatecie (branco, fundo transparente) | ✅ pronto | `assets/logo.png` |
+| Perfil a marcar: **@unifatecie.ipupiara** | ✅ pronto | `js/config.js` → `perfilInstagram` |
+| Polos: **Ipupiara-BA** e **Barra do Mendes-BA** | ✅ pronto | `js/config.js` → `polos` **e** `apps-script/Codigo.gs` → `POLOS` |
+| Prêmio: **6 camisas UniFatecie (3 por polo)** | ✅ pronto | `js/config.js` → `campanha` |
+| Foto das camisas para a tela inicial | ⏳ falta | salvar como `assets/premio.jpg` e preencher `campanha.imagemPremio: 'assets/premio.jpg'` |
+| Lista real de cursos | ⏳ revisar | `js/config.js` → `cursos` |
+| Prazo e data do sorteio | ⏳ revisar | `js/config.js` → `campanha.encerramento` / `dataSorteio` (e `ENCERRAMENTO` no `Codigo.gs`) |
+| Texto do regulamento | ⏳ revisar | `js/config.js` → `regulamento` |
+| Planilha + URL do Apps Script | ⏳ falta | Passo 1 abaixo → `js/config.js` → `urlBackend` |
+| *(Opcional)* Fundo/moldura feitos no Canva | — | `assets/fundo.png` / `assets/moldura.png` |
 
 ---
 
@@ -58,7 +60,9 @@ Todas as configurações ficam nesse arquivo, com comentários em português. Pr
 ## Passo 3: Logo e arte
 
 - Coloque o logo em `assets/logo.png`. Enquanto ele não existir, o site escreve “UniFatecie” em texto no lugar.
-- Cores: `arte.corDestaque` (padrão dourado `#FFC21A`).
+- Cores: `arte.corDestaque` (padrão laranja `#FF7A00`).
+- Marca d'água do fundo: `arte.textura` (padrão `'BLACK'`; use `''` para tirar).
+- Faixa do rodapé: `arte.rodape` (padrão `'@{perfil}'`; use `''` para tirar).
 
 ### Usando uma arte do Canva (opcional)
 
@@ -66,21 +70,21 @@ Todas as configurações ficam nesse arquivo, com comentários em português. Pr
 2. Monte o fundo e **deixe livre a área da foto**. No padrão ela é um círculo com centro em **x 540, y 770** e raio **300 px**. Deixe livre também a área dos textos, de **y 1130 a 1625**.
 3. Exporte como **PNG** e salve como `assets/fundo.png`. Em `config.js`, coloque `fundo: 'assets/fundo.png'`.
 4. Se quiser um elemento **por cima** da foto (moldura com o miolo transparente), exporte só ela como PNG com fundo transparente → `assets/moldura.png` e `moldura: 'assets/moldura.png'`.
-5. Se o seu design já tiver o logo ou o rodapé, use `logo: ''`, `logoTextoReserva: ''` e/ou `rodape: ''`. Para tirar o anel dourado: `foto.borda: false`.
+5. Se o seu design já tiver o logo ou o rodapé, use `logo: ''`, `logoTextoReserva: ''` e/ou `rodape: ''`. Para tirar o anel laranja: `foto.borda: false`.
 6. Posições e tamanhos da foto, do logo e dos textos estão em `arte.foto`, `arte.logoPosicao` e `arte.textos`.
 
-## Passo 4: Publicar o site
+## Passo 4: Publicar o site (GitHub Pages, grátis)
 
-Não precisa de servidor: o site é só HTML, CSS e JS. Este repositório é **privado**, e o GitHub Pages grátis não publica repositório privado. Por isso, a opção mais simples é a Netlify:
+O site é só HTML, CSS e JS, então não precisa de servidor.
 
-**Netlify (grátis, funciona com repositório privado)**
-1. Crie uma conta em [netlify.com](https://www.netlify.com) entrando com o GitHub.
-2. **Add new site → Import an existing project → GitHub** → escolha `SorteioBlack`.
-3. Branch: `main`. *Build command*: deixe vazio. *Publish directory*: `/` (raiz). **Deploy**.
-4. Em *Site configuration → Change site name*, escolha um endereço, por exemplo `sorteioblack-unifatecie.netlify.app`.
-   A cada alteração enviada ao GitHub, o site se atualiza sozinho.
+1. Garanta que os arquivos estejam no branch **`main`** (faça o merge do pull request).
+2. No GitHub: **Settings → Pages**.
+3. Em *Build and deployment*: **Source: Deploy from a branch** → Branch: **`main`** → pasta **`/ (root)`** → **Save**.
+4. Em 1 ou 2 minutos o site fica no ar em:
+   **https://unifatecieipupiara.github.io/SorteioBlack/**
+   e o painel em **https://unifatecieipupiara.github.io/SorteioBlack/sorteio.html**
 
-*Alternativa:* tornar o repositório público e ativar **Settings → Pages → Deploy from a branch → main / (root)**. O código não guarda senhas: a chave do painel fica só no Apps Script.
+A cada alteração enviada ao `main`, o site se atualiza sozinho. O código não guarda senhas: a chave do painel fica só no Apps Script.
 
 ## Passo 5: Testar antes de divulgar
 
@@ -97,8 +101,8 @@ Sem a `urlBackend` configurada, o site funciona em **modo de teste**: gera a art
 ## No dia do sorteio
 
 1. Abra `sorteio.html` → digite a chave → **Carregar**.
-2. Filtre por polo, se houver um prêmio por polo. A opção “Não sortear quem já ganhou” vem marcada.
-3. **Tela cheia** → **Sortear**. O sorteio usa gerador aleatório criptográfico.
+2. Escolha **Polo Ipupiara-BA** no filtro e clique em **Sortear** 3 vezes. Depois troque para **Polo Barra do Mendes-BA** e sorteie mais 3. A opção “Não sortear quem já ganhou” vem marcada.
+3. Use **Tela cheia** para mostrar na live. O sorteio usa gerador aleatório criptográfico.
 4. Antes de anunciar, **confira se o @ sorteado marcou o seu perfil**. Toda menção em story chega nas suas **mensagens (Direct)** do Instagram. Confira também o RA no sistema acadêmico.
 
 ## Dicas

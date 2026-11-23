@@ -76,6 +76,13 @@
     $('#titulo-campanha').textContent = c.titulo;
     $('#subtitulo-campanha').textContent = c.subtitulo;
     $('#premio').textContent = c.premio;
+    $('#premio-detalhe').textContent = c.premioDetalhe || '';
+    if (c.imagemPremio) {
+      const img = $('#img-premio');
+      img.onload = () => (img.hidden = false);
+      img.onerror = () => (img.hidden = true);
+      img.src = c.imagemPremio;
+    }
     const partes = [];
     if (c.encerramento) {
       const d = new Date(c.encerramento);

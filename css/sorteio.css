@@ -28,9 +28,9 @@
   position: relative;
   overflow: hidden;
   border-radius: 24px;
-  border: 1px solid rgba(255, 194, 26, 0.45);
+  border: 1px solid rgba(255, 122, 0, 0.45);
   background:
-    radial-gradient(600px 300px at 50% 0%, rgba(255, 194, 26, 0.18), transparent 70%),
+    radial-gradient(600px 300px at 50% 0%, rgba(255, 122, 0, 0.18), transparent 70%),
     #0b0b0b;
   padding: 40px 20px;
   display: flex;
@@ -48,7 +48,7 @@
 .palco-nome { font-size: clamp(24px, 5vw, 44px); font-weight: 800; min-height: 1.2em; }
 .palco-info { color: var(--texto-2); font-size: clamp(14px, 2.6vw, 20px); font-weight: 600; min-height: 1.4em; }
 .palco.girando .palco-numero, .palco.girando .palco-nome { opacity: 0.85; }
-.palco.revelado .palco-numero { color: var(--destaque); text-shadow: 0 0 40px rgba(255, 194, 26, 0.5); }
+.palco.revelado .palco-numero { color: var(--destaque); text-shadow: 0 0 40px rgba(255, 122, 0, 0.5); }
 .palco-botoes { display: flex; gap: 10px; margin-top: 16px; width: min(100%, 460px); position: relative; }
 .btn-sortear { font-size: 20px; letter-spacing: 2px; text-transform: uppercase; }
 .palco-botoes .btn-secundario { width: auto; white-space: nowrap; }

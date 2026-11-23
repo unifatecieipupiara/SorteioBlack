@@ -142,7 +142,9 @@
     const palco = $('#palco');
     palco.classList.remove('girando');
     palco.classList.add('revelado');
-    $('#palco-rotulo').textContent = `${vencedores.length + 1}º sorteado`;
+    const polo = $('#filtro-polo').value;
+    const ordem = vencedores.filter((v) => !polo || v.polo === polo).length + 1;
+    $('#palco-rotulo').textContent = polo ? `${ordem}º sorteado • ${polo}` : `${ordem}º sorteado`;
     mostrarNoPalco(ganhador, true);
     vencedores.push(Object.assign({ quando: new Date() }, ganhador));
     desenharVencedores();
@@ -183,7 +185,7 @@
     cv.width = r.width * dpr;
     cv.height = r.height * dpr;
     ctx.scale(dpr, dpr);
-    const cores = ['#FFC21A', '#FFD75E', '#FFFFFF', '#FF9F1A'];
+    const cores = ['#FF7A00', '#FFA040', '#FFFFFF', '#FF5500'];
     const pecas = Array.from({ length: 160 }, () => ({
       x: r.width / 2,
       y: r.height * 0.35,
