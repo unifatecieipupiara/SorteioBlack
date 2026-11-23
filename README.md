@@ -7,6 +7,8 @@ Site para o sorteio entre os alunos dos polos. O aluno:
 3. **Recebe a arte pronta** no formato stories (1080×1920) com a foto, “ESTUDANTE DE <CURSO>”, nome, polo e o logo. O aluno **concorre com o próprio RA**.
 4. **Compartilha nos stories** direto pelo botão do celular e marca o seu perfil.
 
+**Página só de arte (`arte.html`):** para quem quer apenas a arte, sem participar do sorteio. Pede só nome, curso e foto, não mostra o polo na arte e **não salva nada** (não fala com a planilha). Endereço: `https://unifatecieipupiara.github.io/SorteioBlack/arte.html`.
+
 As inscrições ficam numa **planilha do Google** (um RA = uma inscrição). No dia, o **painel do sorteio** (`sorteio.html`) sorteia com animação, e dá para usar numa live.
 
 ---
@@ -115,13 +117,15 @@ Sem a `urlBackend` configurada, o site funciona em **modo de teste**: gera a art
 ## Estrutura
 
 ```
-index.html            Site do aluno
+index.html            Site do aluno (inscrição no sorteio)
+arte.html             Página só de arte (sem polo, sem salvar)
 sorteio.html          Painel do sorteio (organizador)
 css/style.css         Visual do site
 css/sorteio.css       Visual do painel
 js/config.js          ← TODAS as configurações
 js/arte.js            Desenho da arte (canvas)
 js/app.js             Fluxo do site (formulário, foto, envio, compartilhar)
+js/arte-livre.js      Fluxo da página só de arte
 js/sorteio.js         Lógica do painel
 apps-script/Codigo.gs Backend da planilha (colar no Apps Script)
 assets/               logo.png, fundo.png, moldura.png
