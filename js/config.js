@@ -9,7 +9,7 @@ window.CONFIG = {
   // Enquanto estiver vazio, o site roda em "modo de teste" e NÃO salva
   // as inscrições.
   // ---------------------------------------------------------------
-  urlBackend: '',
+  urlBackend: 'https://script.google.com/macros/s/AKfycbycHpVbElEJ31PkzaKr2YipQIKogcBCHe8Xzy5dgfo6xxuIeD7SY9PUGnvWsIjUEtND/exec',
 
   // ---------------------------------------------------------------
   // 2) CAMPANHA
