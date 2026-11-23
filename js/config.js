@@ -15,6 +15,7 @@ window.CONFIG = {
   // 2) CAMPANHA
   // ---------------------------------------------------------------
   campanha: {
+    selo: 'Exclusivo para alunos dos polos Barra do Mendes e Ipupiara',
     titulo: 'Sorteio Black UniFatecie',
     subtitulo: 'Crie sua arte de estudante, poste nos stories e concorra!',
     premio: '6 camisas UniFatecie',

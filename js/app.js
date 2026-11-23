@@ -73,6 +73,7 @@
   function iniciarTextos() {
     const c = C.campanha;
     document.title = c.titulo;
+    if (c.selo) $('#selo').textContent = c.selo;
     $('#titulo-campanha').textContent = c.titulo;
     $('#subtitulo-campanha').textContent = c.subtitulo;
     $('#premio').textContent = c.premio;
