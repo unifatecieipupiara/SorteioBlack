@@ -54,7 +54,7 @@
     const lista = nomes.map((nome, i) => ({
       numero: i + 1,
       nome,
-      ra: String(2024100000 + i * 7919),
+      ra: String(104210 + i * 7919).padStart(6, '0'),
       polo: C.polos[i % C.polos.length],
       curso: C.cursos[(i * 3) % C.cursos.length],
       instagram: nome.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/\s+/g, '.'),

@@ -48,7 +48,7 @@
       .join(' ');
   }
   function normalizarRA(ra) {
-    return String(ra || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+    return String(ra || '').replace(/\D/g, '');
   }
   function normalizarInstagram(v) {
     let s = String(v || '').trim();
@@ -171,7 +171,7 @@
     const instagram = normalizarInstagram($('#instagram').value);
 
     if (nome.split(' ').length < 2 || nome.length < 5) erros.nome = 'Digite seu nome completo.';
-    if (!/^[A-Z0-9]{4,20}$/.test(ra)) erros.ra = 'Digite um RA válido.';
+    if (!/^\d{6}$/.test(ra)) erros.ra = 'O RA tem 6 números.';
     if (!poloEl) erros.polo = 'Escolha o seu polo.';
     if (!sel) erros.curso = 'Escolha o seu curso.';
     else if (sel === OUTRO && curso.length < 3) erros.outroCurso = 'Digite o nome do curso.';

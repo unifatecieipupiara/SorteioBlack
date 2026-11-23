@@ -128,6 +128,7 @@ input[type="text"], select {
   outline: none;
 }
 select { appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--texto-2) 50%), linear-gradient(135deg, var(--texto-2) 50%, transparent 50%); background-position: calc(100% - 20px) 50%, calc(100% - 14px) 50%; background-size: 6px 6px; background-repeat: no-repeat; padding-right: 40px; }
+input::placeholder { color: #6b6b6b; }
 input[type="text"]:focus, select:focus { border-color: var(--destaque); box-shadow: 0 0 0 3px rgba(255, 122, 0, 0.2); }
 .com-prefixo { display: flex; align-items: stretch; }
 .com-prefixo b { display: grid; place-items: center; padding: 0 14px; background: var(--cartao-2); border: 1px solid var(--borda); border-right: 0; border-radius: 12px 0 0 12px; color: var(--destaque); }

@@ -65,13 +65,13 @@ function inscrever(d) {
   }
 
   var nome = limpar(d.nome, 120);
-  var ra = String(d.ra || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+  var ra = String(d.ra || '').replace(/\D/g, '');
   var polo = limpar(d.polo, 80);
   var curso = limpar(d.curso, 120);
   var instagram = String(d.instagram || '').replace(/^@+/, '').trim().toLowerCase();
 
   if (nome.split(' ').length < 2) return { ok: false, erro: 'Informe o nome completo.' };
-  if (!/^[A-Z0-9]{4,20}$/.test(ra)) return { ok: false, erro: 'RA inválido.' };
+  if (!/^\d{6}$/.test(ra)) return { ok: false, erro: 'RA inválido: o RA tem 6 números.' };
   if (CONFIG.POLOS.indexOf(polo) === -1) return { ok: false, erro: 'Polo inválido.' };
   if (curso.length < 3) return { ok: false, erro: 'Informe o curso.' };
   if (!/^[a-z0-9._]{1,30}$/.test(instagram)) return { ok: false, erro: 'Instagram inválido.' };
@@ -85,7 +85,7 @@ function inscrever(d) {
     if (ultima > 1) {
       var linhas = aba.getRange(2, 1, ultima - 1, CABECALHO.length).getValues();
       for (var i = 0; i < linhas.length; i++) {
-        if (String(linhas[i][COL.RA]).toUpperCase() === ra) {
+        if (String(linhas[i][COL.RA]) === ra) {
           return { ok: true, numero: Number(linhas[i][COL.NUMERO]) || null, jaInscrito: true };
         }
         var n = Number(linhas[i][COL.NUMERO]) || 0;

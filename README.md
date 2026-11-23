@@ -19,9 +19,9 @@ As inscrições ficam numa **planilha do Google** (um RA = uma inscrição). No 
 | Perfil a marcar: **@unifatecie.ipupiara** | ✅ pronto | `js/config.js` → `perfilInstagram` |
 | Polos: **Ipupiara-BA** e **Barra do Mendes-BA** | ✅ pronto | `js/config.js` → `polos` **e** `apps-script/Codigo.gs` → `POLOS` |
 | Prêmio: **6 camisas UniFatecie (3 por polo)** | ✅ pronto | `js/config.js` → `campanha` |
-| Foto das camisas para a tela inicial | ⏳ falta enviar o arquivo | `assets/premio.jpg` (o site já está configurado para mostrar) |
+| Foto das camisas (imagem ilustrativa) | ✅ pronto | `assets/premio.jpg` |
 | Lista de cursos (82, em ordem alfabética) | ✅ pronto | `js/config.js` → `cursos` |
-| Prazo e data do sorteio | ⏳ revisar | `js/config.js` → `campanha.encerramento` / `dataSorteio` (e `ENCERRAMENTO` no `Codigo.gs`) |
+| Prazo (30/11 às 23h59) e sorteio (01/12) | ✅ pronto | `js/config.js` → `campanha.encerramento` / `dataSorteio` (e `ENCERRAMENTO` no `Codigo.gs`) |
 | Texto do regulamento | ⏳ revisar | `js/config.js` → `regulamento` |
 | Planilha + URL do Apps Script | ⏳ falta | Passo 1 abaixo → `js/config.js` → `urlBackend` |
 | *(Opcional)* Fundo/moldura feitos no Canva | — | `assets/fundo.png` / `assets/moldura.png` |
