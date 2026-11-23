@@ -131,6 +131,7 @@ window.CONFIG = {
     'Para valer, é obrigatório publicar a arte nos stories do Instagram marcando o perfil indicado, até a data de encerramento.',
     'O story precisa ficar no ar por 24 horas. Contas que não marcarem o perfil serão desclassificadas.',
     'O sorteio será realizado na data informada e o ganhador será contatado pelo Instagram.',
+    'O prêmio deve ser retirado no polo do aluno. Se o ganhador não puder retirar no polo e precisar receber pelos Correios, o valor do frete fica por conta do ganhador.',
     'Os dados informados (nome, RA, polo, curso e @ do Instagram) serão usados apenas para este sorteio.',
   ],
 
