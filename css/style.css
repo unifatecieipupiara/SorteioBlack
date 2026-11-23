@@ -5,8 +5,8 @@
   --borda: #2a2a2a;
   --texto: #f5f5f5;
   --texto-2: #a9a9a9;
-  --destaque: #ffc21a;
-  --destaque-2: #ffd75e;
+  --destaque: #ff7a00;
+  --destaque-2: #ffa040;
   --erro: #ff6b6b;
   --raio: 16px;
 }
@@ -19,8 +19,8 @@ html { background: var(--fundo); }
 
 body {
   background:
-    radial-gradient(900px 600px at 0% 0%, rgba(255, 194, 26, 0.12), transparent 60%),
-    radial-gradient(800px 600px at 100% 100%, rgba(255, 194, 26, 0.08), transparent 60%),
+    radial-gradient(900px 600px at 0% 0%, rgba(255, 122, 0, 0.12), transparent 60%),
+    radial-gradient(800px 600px at 100% 100%, rgba(255, 122, 0, 0.08), transparent 60%),
     var(--fundo);
   color: var(--texto);
   font-family: Montserrat, 'Segoe UI', Arial, sans-serif;
@@ -52,19 +52,21 @@ p { margin: 0; }
 .centro { text-align: center; }
 .pequeno { font-size: 13px; color: var(--texto-2); }
 
-.logo-topo { max-width: 200px; max-height: 70px; object-fit: contain; align-self: center; margin: 8px 0 4px; }
+.logo-topo { max-width: 240px; max-height: 72px; object-fit: contain; align-self: center; margin: 8px 0 4px; }
 .logo-texto { align-self: center; font-weight: 800; font-size: 28px; margin: 8px 0 4px; }
 
 .selo {
   align-self: flex-start;
+  max-width: 100%;
   background: var(--destaque);
   color: #0a0a0a;
   font-weight: 800;
   font-size: 12px;
-  letter-spacing: 2px;
+  line-height: 1.35;
+  letter-spacing: 1.2px;
   text-transform: uppercase;
-  padding: 6px 12px;
-  border-radius: 999px;
+  padding: 7px 14px;
+  border-radius: 14px;
 }
 
 .cartao {
@@ -74,12 +76,15 @@ p { margin: 0; }
   padding: 16px;
 }
 
-.premio { display: flex; flex-direction: column; gap: 4px; border-color: rgba(255, 194, 26, 0.45); }
+.premio { display: flex; flex-direction: column; gap: 4px; border-color: rgba(255, 122, 0, 0.45); }
 .premio-rotulo { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--destaque); }
 .premio strong { font-size: 20px; font-weight: 800; }
 .premio-datas { font-size: 14px; color: var(--texto-2); }
+.premio-detalhe { font-size: 15px; font-weight: 600; }
+.img-premio { display: block; width: 100%; height: auto; border-radius: 12px; background: var(--cartao-2); }
+.legenda-premio { font-size: 11px; color: var(--texto-2); text-align: right; margin: -2px 0 6px; }
 
-.alerta { border-color: rgba(255, 194, 26, 0.5); background: rgba(255, 194, 26, 0.08); display: flex; flex-direction: column; gap: 12px; }
+.alerta { border-color: rgba(255, 122, 0, 0.5); background: rgba(255, 122, 0, 0.08); display: flex; flex-direction: column; gap: 12px; }
 
 .passos { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
 .passos li { display: flex; gap: 12px; align-items: center; background: var(--cartao); border: 1px solid var(--borda); border-radius: var(--raio); padding: 12px 14px; }
@@ -100,7 +105,7 @@ p { margin: 0; }
 }
 .btn:active { transform: scale(0.98); }
 .btn:disabled { opacity: 0.4; cursor: not-allowed; }
-.btn-primario { background: linear-gradient(135deg, var(--destaque-2), var(--destaque)); color: #0a0a0a; box-shadow: 0 8px 24px rgba(255, 194, 26, 0.25); }
+.btn-primario { background: linear-gradient(135deg, var(--destaque-2), var(--destaque)); color: #0a0a0a; box-shadow: 0 8px 24px rgba(255, 122, 0, 0.25); }
 .btn-secundario { background: var(--cartao-2); color: var(--texto); border: 1px solid var(--borda); }
 .btn-link { background: none; color: var(--texto-2); min-height: 44px; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
 #bloco-cta { display: flex; flex-direction: column; gap: 4px; margin-top: 4px; }
@@ -123,7 +128,8 @@ input[type="text"], select {
   outline: none;
 }
 select { appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--texto-2) 50%), linear-gradient(135deg, var(--texto-2) 50%, transparent 50%); background-position: calc(100% - 20px) 50%, calc(100% - 14px) 50%; background-size: 6px 6px; background-repeat: no-repeat; padding-right: 40px; }
-input[type="text"]:focus, select:focus { border-color: var(--destaque); box-shadow: 0 0 0 3px rgba(255, 194, 26, 0.2); }
+input::placeholder { color: #6b6b6b; }
+input[type="text"]:focus, select:focus { border-color: var(--destaque); box-shadow: 0 0 0 3px rgba(255, 122, 0, 0.2); }
 .com-prefixo { display: flex; align-items: stretch; }
 .com-prefixo b { display: grid; place-items: center; padding: 0 14px; background: var(--cartao-2); border: 1px solid var(--borda); border-right: 0; border-radius: 12px 0 0 12px; color: var(--destaque); }
 .com-prefixo input { border-radius: 0 12px 12px 0 !important; }
@@ -140,8 +146,8 @@ input[type="text"]:focus, select:focus { border-color: var(--destaque); box-shad
   background: var(--cartao); border: 1px solid var(--borda);
   font-weight: 700; font-size: 14px; cursor: pointer;
 }
-.opcao input:checked + span { border-color: var(--destaque); background: rgba(255, 194, 26, 0.12); color: var(--destaque-2); }
-.opcao input:focus-visible + span { box-shadow: 0 0 0 3px rgba(255, 194, 26, 0.3); }
+.opcao input:checked + span { border-color: var(--destaque); background: rgba(255, 122, 0, 0.12); color: var(--destaque-2); }
+.opcao input:focus-visible + span { box-shadow: 0 0 0 3px rgba(255, 122, 0, 0.3); }
 
 .aceite { display: flex; gap: 12px; align-items: flex-start; font-size: 14px; color: var(--texto-2); cursor: pointer; }
 .aceite input { width: 22px; height: 22px; margin: 0; flex: none; accent-color: var(--destaque); }
@@ -175,11 +181,12 @@ input[type="text"]:focus, select:focus { border-color: var(--destaque); box-shad
 .numero-sorte {
   display: flex; flex-direction: column; align-items: center; gap: 2px;
   padding: 14px; border-radius: var(--raio);
-  background: linear-gradient(135deg, rgba(255, 215, 94, 0.18), rgba(255, 194, 26, 0.06));
-  border: 1px solid rgba(255, 194, 26, 0.5);
+  background: linear-gradient(135deg, rgba(255, 160, 64, 0.18), rgba(255, 122, 0, 0.06));
+  border: 1px solid rgba(255, 122, 0, 0.5);
 }
 .numero-sorte span { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--destaque); }
-.numero-sorte strong { font-size: 44px; font-weight: 900; letter-spacing: 4px; }
+.numero-sorte strong { font-size: clamp(28px, 9vw, 44px); font-weight: 900; letter-spacing: 3px; overflow-wrap: anywhere; text-align: center; line-height: 1.1; margin: 4px 0; }
+.numero-sorte small { font-size: 13px; color: var(--texto-2); text-align: center; }
 .img-final {
   align-self: center;
   width: min(100%, calc(60vh * 9 / 16));

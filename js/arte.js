@@ -203,7 +203,21 @@
     brilho(W * 1.0, H * 0.55, 820, 0.14);
     brilho(W * 0.05, H * 0.98, 700, 0.12);
 
-    // Textura com a palavra BLACK em contorno
+    // Textura com uma palavra em contorno (marca d'água)
+    if (A.textura) desenharTextura(ctx, A);
+
+    // Vinheta para destacar o centro
+    const v = ctx.createRadialGradient(W / 2, H * 0.45, H * 0.25, W / 2, H * 0.45, H * 0.75);
+    v.addColorStop(0, 'rgba(0,0,0,0)');
+    v.addColorStop(1, 'rgba(0,0,0,0.55)');
+    ctx.fillStyle = v;
+    ctx.fillRect(0, 0, W, H);
+  }
+
+  function desenharTextura(ctx, A) {
+    const W = A.largura;
+    const H = A.altura;
+    const palavra = String(A.textura).toUpperCase();
     ctx.save();
     ctx.translate(W / 2, H / 2);
     ctx.rotate(-0.21);
@@ -214,16 +228,9 @@
     ctx.strokeStyle = 'rgba(255,255,255,0.055)';
     for (let i = -4; i <= 4; i++) {
       const desloc = i % 2 === 0 ? 0 : 420;
-      ctx.strokeText('BLACK BLACK BLACK', desloc, i * 300);
+      ctx.strokeText([palavra, palavra, palavra].join(' '), desloc, i * 300);
     }
     ctx.restore();
-
-    // Vinheta para destacar o centro
-    const v = ctx.createRadialGradient(W / 2, H * 0.45, H * 0.25, W / 2, H * 0.45, H * 0.75);
-    v.addColorStop(0, 'rgba(0,0,0,0)');
-    v.addColorStop(1, 'rgba(0,0,0,0.55)');
-    ctx.fillStyle = v;
-    ctx.fillRect(0, 0, W, H);
   }
 
   function desenharBordaFoto(ctx, A) {

@@ -22,13 +22,16 @@
     <!-- ===================== INÍCIO ===================== -->
     <section id="tela-inicio" class="tela ativa">
       <img class="logo-topo" src="assets/logo.png" alt="UniFatecie" onerror="this.replaceWith(Object.assign(document.createElement('p'),{className:'logo-texto',textContent:'UniFatecie'}))">
-      <p class="selo">Exclusivo para alunos</p>
+      <p class="selo" id="selo">Exclusivo para alunos dos polos Barra do Mendes e Ipupiara</p>
       <h1 id="titulo-campanha">Sorteio Black UniFatecie</h1>
       <p id="subtitulo-campanha" class="sub"></p>
 
       <div class="cartao premio">
+        <img id="img-premio" class="img-premio" alt="Camisas UniFatecie, prêmio do sorteio" hidden>
+        <small id="legenda-premio" class="legenda-premio" hidden></small>
         <span class="premio-rotulo">Prêmio</span>
         <strong id="premio"></strong>
+        <span id="premio-detalhe" class="premio-detalhe"></span>
         <span id="info-datas" class="premio-datas"></span>
       </div>
 
@@ -62,7 +65,7 @@
 
         <label class="campo">
           <span>RA</span>
-          <input id="ra" name="ra" type="text" inputmode="numeric" autocomplete="off" maxlength="20" required>
+          <input id="ra" name="ra" type="text" inputmode="numeric" autocomplete="off" maxlength="10" placeholder="6 números" required>
           <small class="erro" data-erro="ra"></small>
         </label>
 
@@ -150,9 +153,10 @@
       <div id="final-ok" hidden>
         <h2 id="final-titulo">Pronto!</h2>
         <p id="final-msg" class="sub"></p>
-        <div id="numero-sorte" class="numero-sorte" hidden>
-          <span>Seu número da sorte</span>
+        <div id="numero-sorte" class="numero-sorte">
+          <span>Você concorre com o seu RA</span>
           <strong id="numero"></strong>
+          <small>Fique de olho no sorteio: o RA sorteado aparece na tela.</small>
         </div>
         <p id="aviso-demo" class="cartao alerta" hidden>
           Modo de teste: o site ainda não está ligado à planilha, então esta inscrição não foi salva.

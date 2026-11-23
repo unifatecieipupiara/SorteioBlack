@@ -19,12 +19,12 @@ var CONFIG = {
   // Senha do painel de sorteio (sorteio.html). TROQUE antes de implantar!
   CHAVE_ADMIN: 'TROQUE-ESTA-CHAVE',
   // Precisa ser exatamente igual à lista "polos" do js/config.js
-  POLOS: ['Polo Ipupiara', 'Polo NOME DO 2º POLO'],
+  POLOS: ['Polo Ipupiara-BA', 'Polo Barra do Mendes-BA'],
   // Data/hora limite para inscrições ('' = sem limite)
   ENCERRAMENTO: '2026-11-30T23:59:00-03:00',
 };
 
-var CABECALHO = ['Número da sorte', 'Data/hora', 'Nome', 'RA', 'Polo', 'Curso', 'Instagram'];
+var CABECALHO = ['Nº inscrição', 'Data/hora', 'Nome', 'RA', 'Polo', 'Curso', 'Instagram'];
 var COL = { NUMERO: 0, DATA: 1, NOME: 2, RA: 3, POLO: 4, CURSO: 5, INSTAGRAM: 6 };
 
 // ------------------------------------------------------------------
@@ -65,13 +65,13 @@ function inscrever(d) {
   }
 
   var nome = limpar(d.nome, 120);
-  var ra = String(d.ra || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+  var ra = String(d.ra || '').replace(/\D/g, '');
   var polo = limpar(d.polo, 80);
   var curso = limpar(d.curso, 120);
   var instagram = String(d.instagram || '').replace(/^@+/, '').trim().toLowerCase();
 
   if (nome.split(' ').length < 2) return { ok: false, erro: 'Informe o nome completo.' };
-  if (!/^[A-Z0-9]{4,20}$/.test(ra)) return { ok: false, erro: 'RA inválido.' };
+  if (!/^\d{6}$/.test(ra)) return { ok: false, erro: 'RA inválido: o RA tem 6 números.' };
   if (CONFIG.POLOS.indexOf(polo) === -1) return { ok: false, erro: 'Polo inválido.' };
   if (curso.length < 3) return { ok: false, erro: 'Informe o curso.' };
   if (!/^[a-z0-9._]{1,30}$/.test(instagram)) return { ok: false, erro: 'Instagram inválido.' };
@@ -85,7 +85,7 @@ function inscrever(d) {
     if (ultima > 1) {
       var linhas = aba.getRange(2, 1, ultima - 1, CABECALHO.length).getValues();
       for (var i = 0; i < linhas.length; i++) {
-        if (String(linhas[i][COL.RA]).toUpperCase() === ra) {
+        if (String(linhas[i][COL.RA]) === ra) {
           return { ok: true, numero: Number(linhas[i][COL.NUMERO]) || null, jaInscrito: true };
         }
         var n = Number(linhas[i][COL.NUMERO]) || 0;

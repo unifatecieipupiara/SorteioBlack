@@ -22,9 +22,6 @@
     return x % n;
   }
 
-  function num(n) {
-    return String(n || 0).padStart(4, '0');
-  }
 
   function texto(tag, classe, conteudo) {
     const el = document.createElement(tag);
@@ -57,7 +54,7 @@
     const lista = nomes.map((nome, i) => ({
       numero: i + 1,
       nome,
-      ra: String(100000 + i * 137),
+      ra: String(104210 + i * 7919).padStart(6, '0'),
       polo: C.polos[i % C.polos.length],
       curso: C.cursos[(i * 3) % C.cursos.length],
       instagram: nome.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/\s+/g, '.'),
@@ -79,6 +76,23 @@
     $('#filtros').hidden = false;
     $('#palco').hidden = false;
     atualizarContagem();
+    ajustarTamanhoRA();
+  }
+
+  // Ajusta a fonte do RA no palco para o RA mais longo caber na largura
+  function ajustarTamanhoRA() {
+    const el = $('#palco-numero');
+    if (!participantes.length || $('#palco').hidden) return;
+    const maior = participantes.reduce((m, p) => Math.max(m, String(p.ra).length), 4);
+    const atual = el.textContent;
+    el.style.fontSize = '';
+    el.textContent = '0'.repeat(maior);
+    const largura = el.scrollWidth;
+    const disponivel = $('#palco').clientWidth - 48;
+    if (largura > disponivel) {
+      el.style.fontSize = parseFloat(getComputedStyle(el).fontSize) * (disponivel / largura) + 'px';
+    }
+    el.textContent = atual;
   }
 
   function elegiveis() {
@@ -106,7 +120,7 @@
 
   // ---------- sorteio ----------
   function mostrarNoPalco(p, revelado) {
-    $('#palco-numero').textContent = num(p.numero);
+    $('#palco-numero').textContent = p.ra;
     $('#palco-nome').textContent = p.nome;
     $('#palco-info').textContent = revelado ? `${p.polo} • ${p.curso} • @${p.instagram}` : p.polo;
   }
@@ -142,7 +156,9 @@
     const palco = $('#palco');
     palco.classList.remove('girando');
     palco.classList.add('revelado');
-    $('#palco-rotulo').textContent = `${vencedores.length + 1}º sorteado`;
+    const polo = $('#filtro-polo').value;
+    const ordem = vencedores.filter((v) => !polo || v.polo === polo).length + 1;
+    $('#palco-rotulo').textContent = polo ? `${ordem}º sorteado • ${polo}` : `${ordem}º sorteado`;
     mostrarNoPalco(ganhador, true);
     vencedores.push(Object.assign({ quando: new Date() }, ganhador));
     desenharVencedores();
@@ -158,7 +174,7 @@
     ol.innerHTML = '';
     vencedores.forEach((v) => {
       const li = document.createElement('li');
-      li.appendChild(texto('div', 'nome', `#${num(v.numero)} — ${v.nome}`));
+      li.appendChild(texto('div', 'nome', `RA ${v.ra} — ${v.nome}`));
       const det = texto('div', 'det');
       det.append(`${v.polo} • ${v.curso} • `);
       const a = texto('a', '', '@' + v.instagram);
@@ -166,7 +182,6 @@
       a.target = '_blank';
       a.rel = 'noopener';
       det.appendChild(a);
-      det.appendChild(texto('span', 'ra', ` • RA ${v.ra}`));
       det.append(` • sorteado às ${v.quando.toLocaleTimeString('pt-BR')}`);
       li.appendChild(det);
       ol.appendChild(li);
@@ -183,7 +198,7 @@
     cv.width = r.width * dpr;
     cv.height = r.height * dpr;
     ctx.scale(dpr, dpr);
-    const cores = ['#FFC21A', '#FFD75E', '#FFFFFF', '#FF9F1A'];
+    const cores = ['#FF7A00', '#FFA040', '#FFFFFF', '#FF5500'];
     const pecas = Array.from({ length: 160 }, () => ({
       x: r.width / 2,
       y: r.height * 0.35,
@@ -246,7 +261,8 @@
     $('#filtro-polo').addEventListener('change', atualizarContagem);
     $('#sem-repetir').addEventListener('change', atualizarContagem);
     $('#btn-sortear').addEventListener('click', sortear);
-    $('#mostrar-ra').addEventListener('change', (e) => $('#lista-vencedores').classList.toggle('com-ra', e.target.checked));
+    window.addEventListener('resize', ajustarTamanhoRA);
+    document.addEventListener('fullscreenchange', () => setTimeout(ajustarTamanhoRA, 50));
     $('#btn-tela-cheia').addEventListener('click', () => {
       const palco = $('#palco');
       if (document.fullscreenElement) document.exitFullscreen();

@@ -48,7 +48,7 @@
       .join(' ');
   }
   function normalizarRA(ra) {
-    return String(ra || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+    return String(ra || '').replace(/\D/g, '');
   }
   function normalizarInstagram(v) {
     let s = String(v || '').trim();
@@ -73,9 +73,22 @@
   function iniciarTextos() {
     const c = C.campanha;
     document.title = c.titulo;
+    if (c.selo) $('#selo').textContent = c.selo;
     $('#titulo-campanha').textContent = c.titulo;
     $('#subtitulo-campanha').textContent = c.subtitulo;
     $('#premio').textContent = c.premio;
+    $('#premio-detalhe').textContent = c.premioDetalhe || '';
+    if (c.imagemPremio) {
+      const img = $('#img-premio');
+      const legenda = $('#legenda-premio');
+      legenda.textContent = c.legendaImagemPremio || '';
+      img.onload = () => {
+        img.hidden = false;
+        legenda.hidden = !legenda.textContent;
+      };
+      img.onerror = () => (img.hidden = true);
+      img.src = c.imagemPremio;
+    }
     const partes = [];
     if (c.encerramento) {
       const d = new Date(c.encerramento);
@@ -158,7 +171,7 @@
     const instagram = normalizarInstagram($('#instagram').value);
 
     if (nome.split(' ').length < 2 || nome.length < 5) erros.nome = 'Digite seu nome completo.';
-    if (!/^[A-Z0-9]{4,20}$/.test(ra)) erros.ra = 'Digite um RA válido.';
+    if (!/^\d{6}$/.test(ra)) erros.ra = 'O RA tem 6 números.';
     if (!poloEl) erros.polo = 'Escolha o seu polo.';
     if (!sel) erros.curso = 'Escolha o seu curso.';
     else if (sel === OUTRO && curso.length < 3) erros.outroCurso = 'Digite o nome do curso.';
@@ -320,7 +333,7 @@
 
   // ---------- inscrição ----------
   async function registrar(dados) {
-    if (!C.urlBackend) return { ok: true, numero: null, demo: true };
+    if (!C.urlBackend) return { ok: true, demo: true };
     const controle = new AbortController();
     const tempo = setTimeout(() => controle.abort(), 30000);
     try {
@@ -369,12 +382,11 @@
 
     const reedicao = r.jaInscrito && estado.raRegistrado === estado.dados.ra;
     estado.raRegistrado = estado.dados.ra;
-    if (r.numero) salvarLocal({ numero: r.numero, ra: estado.dados.ra });
 
     const primeiro = estado.dados.nome.split(' ')[0];
     if (reedicao) {
       $('#final-titulo').textContent = 'Arte atualizada!';
-      $('#final-msg').textContent = 'Sua participação continua registrada com o mesmo número.';
+      $('#final-msg').textContent = 'Sua participação continua registrada.';
     } else if (r.jaInscrito) {
       $('#final-titulo').textContent = `Oi de novo, ${primeiro}!`;
       $('#final-msg').textContent = 'Você já estava participando com este RA. Aqui está a sua arte.';
@@ -382,8 +394,7 @@
       $('#final-titulo').textContent = `Pronto, ${primeiro}!`;
       $('#final-msg').textContent = 'Sua participação foi registrada. Agora é só postar!';
     }
-    $('#numero-sorte').hidden = !r.numero;
-    $('#numero').textContent = r.numero ? String(r.numero).padStart(4, '0') : '';
+    $('#numero').textContent = estado.dados.ra;
     $('#aviso-demo').hidden = !r.demo;
 
     const arquivo = arquivoArte();
