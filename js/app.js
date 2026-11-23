@@ -80,7 +80,12 @@
     $('#premio-detalhe').textContent = c.premioDetalhe || '';
     if (c.imagemPremio) {
       const img = $('#img-premio');
-      img.onload = () => (img.hidden = false);
+      const legenda = $('#legenda-premio');
+      legenda.textContent = c.legendaImagemPremio || '';
+      img.onload = () => {
+        img.hidden = false;
+        legenda.hidden = !legenda.textContent;
+      };
       img.onerror = () => (img.hidden = true);
       img.src = c.imagemPremio;
     }
@@ -328,7 +333,7 @@
 
   // ---------- inscrição ----------
   async function registrar(dados) {
-    if (!C.urlBackend) return { ok: true, numero: null, demo: true };
+    if (!C.urlBackend) return { ok: true, demo: true };
     const controle = new AbortController();
     const tempo = setTimeout(() => controle.abort(), 30000);
     try {
@@ -377,12 +382,11 @@
 
     const reedicao = r.jaInscrito && estado.raRegistrado === estado.dados.ra;
     estado.raRegistrado = estado.dados.ra;
-    if (r.numero) salvarLocal({ numero: r.numero, ra: estado.dados.ra });
 
     const primeiro = estado.dados.nome.split(' ')[0];
     if (reedicao) {
       $('#final-titulo').textContent = 'Arte atualizada!';
-      $('#final-msg').textContent = 'Sua participação continua registrada com o mesmo número.';
+      $('#final-msg').textContent = 'Sua participação continua registrada.';
     } else if (r.jaInscrito) {
       $('#final-titulo').textContent = `Oi de novo, ${primeiro}!`;
       $('#final-msg').textContent = 'Você já estava participando com este RA. Aqui está a sua arte.';
@@ -390,8 +394,7 @@
       $('#final-titulo').textContent = `Pronto, ${primeiro}!`;
       $('#final-msg').textContent = 'Sua participação foi registrada. Agora é só postar!';
     }
-    $('#numero-sorte').hidden = !r.numero;
-    $('#numero').textContent = r.numero ? String(r.numero).padStart(4, '0') : '';
+    $('#numero').textContent = estado.dados.ra;
     $('#aviso-demo').hidden = !r.demo;
 
     const arquivo = arquivoArte();

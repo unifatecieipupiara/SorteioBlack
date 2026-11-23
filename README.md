@@ -4,7 +4,7 @@ Site para o sorteio entre os alunos dos polos. O aluno:
 
 1. **Se identifica** (nome, RA, polo, curso e @ do Instagram) e aceita o regulamento.
 2. **Envia a foto** e ajusta o enquadramento no próprio site (arrastar, zoom, girar).
-3. **Recebe a arte pronta** no formato stories (1080×1920) com a foto, “ESTUDANTE DE <CURSO>”, nome, polo e o logo, além de um **número da sorte**.
+3. **Recebe a arte pronta** no formato stories (1080×1920) com a foto, “ESTUDANTE DE <CURSO>”, nome, polo e o logo. O aluno **concorre com o próprio RA**.
 4. **Compartilha nos stories** direto pelo botão do celular e marca o seu perfil.
 
 As inscrições ficam numa **planilha do Google** (um RA = uma inscrição). No dia, o **painel do sorteio** (`sorteio.html`) sorteia com animação, e dá para usar numa live.
@@ -19,8 +19,8 @@ As inscrições ficam numa **planilha do Google** (um RA = uma inscrição). No 
 | Perfil a marcar: **@unifatecie.ipupiara** | ✅ pronto | `js/config.js` → `perfilInstagram` |
 | Polos: **Ipupiara-BA** e **Barra do Mendes-BA** | ✅ pronto | `js/config.js` → `polos` **e** `apps-script/Codigo.gs` → `POLOS` |
 | Prêmio: **6 camisas UniFatecie (3 por polo)** | ✅ pronto | `js/config.js` → `campanha` |
-| Foto das camisas para a tela inicial | ⏳ falta | salvar como `assets/premio.jpg` e preencher `campanha.imagemPremio: 'assets/premio.jpg'` |
-| Lista real de cursos | ⏳ revisar | `js/config.js` → `cursos` |
+| Foto das camisas para a tela inicial | ⏳ falta enviar o arquivo | `assets/premio.jpg` (o site já está configurado para mostrar) |
+| Lista de cursos (82, em ordem alfabética) | ✅ pronto | `js/config.js` → `cursos` |
 | Prazo e data do sorteio | ⏳ revisar | `js/config.js` → `campanha.encerramento` / `dataSorteio` (e `ENCERRAMENTO` no `Codigo.gs`) |
 | Texto do regulamento | ⏳ revisar | `js/config.js` → `regulamento` |
 | Planilha + URL do Apps Script | ⏳ falta | Passo 1 abaixo → `js/config.js` → `urlBackend` |
@@ -50,7 +50,7 @@ As inscrições ficam numa **planilha do Google** (um RA = uma inscrição). No 
 >
 > **Alterou o `Codigo.gs` depois?** Vá em *Implantar → Gerenciar implantações → lápis → Versão: Nova versão → Implantar*. Assim a URL continua a mesma.
 
-A planilha terá as colunas: **Número da sorte · Data/hora · Nome · RA · Polo · Curso · Instagram**.
+A planilha terá as colunas: **Nº inscrição · Data/hora · Nome · RA · Polo · Curso · Instagram**.
 
 ## Passo 2: Ajustar `js/config.js`
 

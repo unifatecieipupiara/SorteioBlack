@@ -44,7 +44,7 @@
 .palco:fullscreen { border-radius: 0; border: 0; justify-content: center; }
 #confete { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 .palco-rotulo { color: var(--destaque); font-weight: 800; letter-spacing: 3px; text-transform: uppercase; font-size: 14px; }
-.palco-numero { font-size: clamp(64px, 16vw, 140px); font-weight: 900; letter-spacing: 6px; line-height: 1; font-variant-numeric: tabular-nums; }
+.palco-numero { display: inline-block; white-space: nowrap; font-size: clamp(48px, 12vw, 130px); font-weight: 900; letter-spacing: 4px; line-height: 1; font-variant-numeric: tabular-nums; }
 .palco-nome { font-size: clamp(24px, 5vw, 44px); font-weight: 800; min-height: 1.2em; }
 .palco-info { color: var(--texto-2); font-size: clamp(14px, 2.6vw, 20px); font-weight: 600; min-height: 1.4em; }
 .palco.girando .palco-numero, .palco.girando .palco-nome { opacity: 0.85; }
@@ -59,8 +59,6 @@
 .lista-vencedores .nome { font-weight: 800; }
 .lista-vencedores .det { color: var(--texto-2); font-size: 14px; }
 .lista-vencedores a { color: var(--destaque); }
-.lista-vencedores .ra { display: none; }
-.lista-vencedores.com-ra .ra { display: inline; }
 
 @media (max-width: 520px) {
   .linha-acesso { flex-direction: column; }

@@ -81,7 +81,8 @@ p { margin: 0; }
 .premio strong { font-size: 20px; font-weight: 800; }
 .premio-datas { font-size: 14px; color: var(--texto-2); }
 .premio-detalhe { font-size: 15px; font-weight: 600; }
-.img-premio { width: 100%; border-radius: 12px; margin-bottom: 6px; object-fit: cover; max-height: 320px; background: var(--cartao-2); }
+.img-premio { display: block; width: 100%; height: auto; border-radius: 12px; background: var(--cartao-2); }
+.legenda-premio { font-size: 11px; color: var(--texto-2); text-align: right; margin: -2px 0 6px; }
 
 .alerta { border-color: rgba(255, 122, 0, 0.5); background: rgba(255, 122, 0, 0.08); display: flex; flex-direction: column; gap: 12px; }
 
@@ -183,7 +184,8 @@ input[type="text"]:focus, select:focus { border-color: var(--destaque); box-shad
   border: 1px solid rgba(255, 122, 0, 0.5);
 }
 .numero-sorte span { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--destaque); }
-.numero-sorte strong { font-size: 44px; font-weight: 900; letter-spacing: 4px; }
+.numero-sorte strong { font-size: clamp(28px, 9vw, 44px); font-weight: 900; letter-spacing: 3px; overflow-wrap: anywhere; text-align: center; line-height: 1.1; margin: 4px 0; }
+.numero-sorte small { font-size: 13px; color: var(--texto-2); text-align: center; }
 .img-final {
   align-self: center;
   width: min(100%, calc(60vh * 9 / 16));

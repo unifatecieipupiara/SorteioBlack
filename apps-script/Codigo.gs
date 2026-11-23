@@ -24,7 +24,7 @@ var CONFIG = {
   ENCERRAMENTO: '2026-11-30T23:59:00-03:00',
 };
 
-var CABECALHO = ['Número da sorte', 'Data/hora', 'Nome', 'RA', 'Polo', 'Curso', 'Instagram'];
+var CABECALHO = ['Nº inscrição', 'Data/hora', 'Nome', 'RA', 'Polo', 'Curso', 'Instagram'];
 var COL = { NUMERO: 0, DATA: 1, NOME: 2, RA: 3, POLO: 4, CURSO: 5, INSTAGRAM: 6 };
 
 // ------------------------------------------------------------------
