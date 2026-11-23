@@ -179,15 +179,16 @@ window.CONFIG = {
     textos: {
       x: 540,
       topo: 1130,
-      base: 1625,
+      base: 1590,
       larguraMax: 940,
       rotulo: 'ESTUDANTE DE',
       mostrarNome: true,
       mostrarPolo: true,
     },
 
-    // Faixa no rodapé da arte. Use {perfil} para inserir o @. Vazio = sem faixa.
-    rodape: '@{perfil}',
-    rodapeY: 1695,
+    // Espaço laranja no rodapé onde o aluno coloca o sticker de menção (@) do Instagram.
+    // texto: '' = espaço vazio (use '@{perfil}' para escrever o @ dentro).
+    // mostrar: false = sem o espaço laranja.
+    rodape: { mostrar: true, texto: '', y: 1685, largura: 700, altura: 116 },
   },
 };
