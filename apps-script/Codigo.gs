@@ -25,6 +25,9 @@ var CONFIG = {
 };
 
 var CABECALHO = ['Nº inscrição', 'Data/hora', 'Nome', 'RA', 'Polo', 'Curso', 'Instagram'];
+var ABA_CONFLITOS = 'Conflitos de RA';
+var CABECALHO_CONFLITOS = ['Data/hora', 'Nome digitado', 'RA', 'Polo', 'Curso', 'Instagram', 'Nome já cadastrado neste RA'];
+var CHAVE_PADRAO = 'TROQUE-ESTA-CHAVE';
 var COL = { NUMERO: 0, DATA: 1, NOME: 2, RA: 3, POLO: 4, CURSO: 5, INSTAGRAM: 6 };
 
 // ------------------------------------------------------------------
@@ -44,6 +47,9 @@ function doPost(e) {
 function doGet(e) {
   var p = (e && e.parameter) || {};
   if (p.acao === 'listar') {
+    if (CONFIG.CHAVE_ADMIN === CHAVE_PADRAO) {
+      return responder({ ok: false, erro: 'Defina a CHAVE_ADMIN no código do Apps Script antes de usar o painel.' });
+    }
     if (!p.chave || p.chave !== CONFIG.CHAVE_ADMIN) {
       return responder({ ok: false, erro: 'Chave de administrador incorreta.' });
     }
@@ -86,6 +92,17 @@ function inscrever(d) {
       var linhas = aba.getRange(2, 1, ultima - 1, CABECALHO.length).getValues();
       for (var i = 0; i < linhas.length; i++) {
         if (String(linhas[i][COL.RA]) === ra) {
+          var nomeCadastrado = String(linhas[i][COL.NOME]);
+          // RA já usado por OUTRA pessoa (primeiro nome diferente): bloqueia e registra
+          if (primeiroNome(nomeCadastrado) !== primeiroNome(nome)) {
+            registrarConflito([new Date(), seguro(nome), ra, seguro(polo), seguro(curso), instagram, seguro(nomeCadastrado.replace(/^'/, ''))]);
+            return {
+              ok: false,
+              codigo: 'ra_outro_nome',
+              erro: 'Este RA já foi cadastrado com outro nome. Confira se digitou o seu RA corretamente. Se o RA estiver certo, fale com a organização do sorteio.',
+            };
+          }
+          // Mesma pessoa voltando (ex.: para refazer a arte)
           return { ok: true, numero: Number(linhas[i][COL.NUMERO]) || null, jaInscrito: true };
         }
         var n = Number(linhas[i][COL.NUMERO]) || 0;
@@ -142,6 +159,27 @@ function obterAba() {
     aba.getRange('B:B').setNumberFormat('dd/mm/yyyy hh:mm');
   }
   return aba;
+}
+
+// Primeiro nome sem acentos e em minúsculas (para comparar "Maria" com "MARIA" ou "María")
+function primeiroNome(nome) {
+  var s = String(nome || '').replace(/^'/, '').trim().toLowerCase();
+  if (s.normalize) s = s.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  return s.split(/\s+/)[0] || '';
+}
+
+function registrarConflito(linha) {
+  var planilha = SpreadsheetApp.getActiveSpreadsheet();
+  var aba = planilha.getSheetByName(ABA_CONFLITOS);
+  if (!aba) {
+    aba = planilha.insertSheet(ABA_CONFLITOS);
+    aba.getRange(1, 1, 1, CABECALHO_CONFLITOS.length).setValues([CABECALHO_CONFLITOS]).setFontWeight('bold');
+    aba.setFrozenRows(1);
+    aba.getRange('C:C').setNumberFormat('@');
+    aba.getRange('F:F').setNumberFormat('@');
+    aba.getRange('A:A').setNumberFormat('dd/mm/yyyy hh:mm');
+  }
+  aba.appendRow(linha);
 }
 
 function limpar(v, max) {

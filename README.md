@@ -54,6 +54,10 @@ As inscrições ficam numa **planilha do Google** (um RA = uma inscrição). No 
 
 A planilha terá as colunas: **Nº inscrição · Data/hora · Nome · RA · Polo · Curso · Instagram**.
 
+- **RA já cadastrado por outra pessoa:** se alguém tentar se inscrever com um RA que já está na planilha com **outro primeiro nome**, a inscrição é bloqueada (a arte não é liberada) e a tentativa fica registrada na aba **Conflitos de RA**, com o nome digitado e o nome já cadastrado. Mesmo primeiro nome = mesma pessoa voltando para refazer a arte (liberado, sem linha nova).
+- **Ordenar a planilha:** use sempre *Dados → Classificar página* (ordena as linhas inteiras). Ordenar só algumas colunas mistura os dados entre os alunos.
+- Pode criar colunas extras (ex.: “Postou?”) **depois** da coluna Instagram.
+
 ## Passo 2: Ajustar `js/config.js`
 
 Todas as configurações ficam nesse arquivo, com comentários em português. Preencha pelo menos:

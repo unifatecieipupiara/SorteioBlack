@@ -34,6 +34,13 @@
       /* sem armazenamento: tudo bem */
     }
   }
+  function limparLocal() {
+    try {
+      localStorage.removeItem(CHAVE_LOCAL);
+    } catch (e) {
+      /* ok */
+    }
+  }
 
   // ---------- formatação ----------
   const PARTICULAS = ['de', 'da', 'do', 'das', 'dos', 'e', 'di', 'du'];
@@ -375,10 +382,17 @@
     $('#final-carregando').hidden = true;
 
     if (!r || !r.ok) {
+      // RA já cadastrado por outra pessoa: não libera a arte, pede para conferir o RA
+      const conflitoRA = !!(r && r.codigo === 'ra_outro_nome');
       $('#final-erro-msg').textContent = (r && r.erro) || 'Não foi possível registrar sua participação.';
+      $('#btn-tentar').hidden = conflitoRA;
+      $('#btn-corrigir').hidden = !conflitoRA;
       $('#final-erro').hidden = false;
       return;
     }
+
+    // Inscrição confirmada: o aparelho esquece os dados (o próximo aluno não herda o RA)
+    limparLocal();
 
     const reedicao = r.jaInscrito && estado.raRegistrado === estado.dados.ra;
     estado.raRegistrado = estado.dados.ra;
@@ -454,6 +468,20 @@
     setTimeout(() => (btn.textContent = 'Copiar @'), 2000);
   }
 
+  // Limpa tudo para outra pessoa se inscrever no mesmo aparelho
+  function novaInscricao() {
+    $('#form-dados').reset();
+    $('#campo-outro-curso').hidden = true;
+    $$('[data-erro]').forEach((el) => (el.textContent = ''));
+    estado.dados = null;
+    estado.raRegistrado = null;
+    estado.blob = null;
+    $('#img-final').removeAttribute('src');
+    definirFoto(null);
+    limparLocal();
+    mostrar('tela-dados');
+  }
+
   // ---------- eventos ----------
   function ligarEventos() {
     $('#btn-participar').addEventListener('click', () => mostrar('tela-dados'));
@@ -502,6 +530,13 @@
       }
     });
     $('#btn-tentar').addEventListener('click', enviarInscricao);
+    $('#btn-corrigir').addEventListener('click', () => {
+      mostrar('tela-dados');
+      const ra = $('#ra');
+      ra.focus();
+      ra.select();
+    });
+    $('#btn-outra-pessoa').addEventListener('click', novaInscricao);
     $('#btn-compartilhar').addEventListener('click', compartilhar);
     $('#btn-baixar').addEventListener('click', baixar);
     $('#btn-copiar').addEventListener('click', copiarPerfil);
