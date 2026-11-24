@@ -23,7 +23,7 @@
     <section id="tela-criar" class="tela ativa">
       <img class="logo-topo" src="assets/logo.png" alt="UniFatecie" onerror="this.replaceWith(Object.assign(document.createElement('p'),{className:'logo-texto',textContent:'UniFatecie'}))">
       <h1>Crie sua arte de estudante</h1>
-      <p class="sub">Coloque seu nome, escolha o curso e envie sua foto. A arte fica pronta para os stories.</p>
+      <p class="sub">Coloque seu nome, informe seu curso ou especialização e envie sua foto. A arte fica pronta para os stories.</p>
 
       <form id="form-arte" class="form-arte" novalidate>
         <label class="campo">
@@ -33,10 +33,25 @@
           <small class="erro" data-erro="nome"></small>
         </label>
 
-        <label class="campo">
+        <fieldset class="campo">
+          <legend>Você é aluno de</legend>
+          <div class="opcoes">
+            <label class="opcao"><input type="radio" name="tipo" value="graduacao" checked><span>Graduação</span></label>
+            <label class="opcao"><input type="radio" name="tipo" value="pos"><span>Pós-Graduação</span></label>
+          </div>
+        </fieldset>
+
+        <label class="campo" id="campo-curso">
           <span>Curso</span>
           <select id="curso" name="curso" required></select>
           <small class="erro" data-erro="curso"></small>
+        </label>
+
+        <label class="campo" id="campo-especializacao" hidden>
+          <span>Especialização em…</span>
+          <input id="especializacao" name="especializacao" type="text" maxlength="80" placeholder="Ex.: Gestão de Pessoas">
+          <small class="dica">Na arte vai aparecer “ESPECIALIZAÇÃO EM” e o nome que você digitar.</small>
+          <small class="erro" data-erro="especializacao"></small>
         </label>
       </form>
 

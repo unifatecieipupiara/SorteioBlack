@@ -63,10 +63,42 @@
   const ctx = canvas.getContext('2d');
   let desenhoPendente = false;
 
+  // ---------- graduação x pós-graduação ----------
+  const ROTULO_POS = (A.textos && A.textos.rotuloPos) || 'ESPECIALIZAÇÃO EM';
+
+  function ehPos() {
+    const marcado = document.querySelector('input[name="tipo"]:checked');
+    return !!marcado && marcado.value === 'pos';
+  }
+
+  // Tira "Especialização em", "Pós-graduação em" etc. do começo (a arte já escreve isso)
+  function limparEspecializacao(v) {
+    return String(v || '')
+      .replace(/\s+/g, ' ')
+      .trim()
+      .replace(/^(especializa[cç][aã]o|p[oó]s[\s-]*gradua[cç][aã]o|p[oó]s)\s+(em|de|na|no)\s+/i, '')
+      .trim();
+  }
+
+  function atualizarTipo() {
+    const pos = ehPos();
+    $('#campo-curso').hidden = pos;
+    $('#campo-especializacao').hidden = !pos;
+    $('[data-erro="curso"]').textContent = '';
+    $('[data-erro="especializacao"]').textContent = '';
+  }
+
   function dadosArte() {
     const nome = formatarNome($('#nome').value);
-    // Sem polo nesta página
-    return { nome: nome ? nomeArte(nome) : '', curso: $('#curso').value, polo: '' };
+    const base = { nome: nome ? nomeArte(nome) : '', polo: '' }; // sem polo nesta página
+    if (ehPos()) {
+      return Object.assign(base, {
+        rotulo: ROTULO_POS,
+        curso: limparEspecializacao($('#especializacao').value),
+        cursoReserva: 'SUA ESPECIALIZAÇÃO',
+      });
+    }
+    return Object.assign(base, { curso: $('#curso').value });
   }
 
   function desenharAgora() {
@@ -198,7 +230,11 @@
     const erros = {};
     const nome = formatarNome($('#nome').value);
     if (nome.length < 2) erros.nome = 'Digite seu nome.';
-    if (!$('#curso').value) erros.curso = 'Escolha o seu curso.';
+    if (ehPos()) {
+      if (limparEspecializacao($('#especializacao').value).length < 3) erros.especializacao = 'Digite o nome da sua especialização.';
+    } else if (!$('#curso').value) {
+      erros.curso = 'Escolha o seu curso.';
+    }
     $$('[data-erro]').forEach((el) => (el.textContent = erros[el.dataset.erro] || ''));
     $('#erro-foto').textContent = estado.foto ? '' : 'Envie sua foto para gerar a arte.';
     const primeiro = Object.keys(erros)[0];
@@ -269,11 +305,20 @@
     const salvo = lerLocal();
     if (salvo.nome) $('#nome').value = salvo.nome;
     if (salvo.curso && C.cursos.includes(salvo.curso)) sel.value = salvo.curso;
+    if (salvo.especializacao) $('#especializacao').value = salvo.especializacao;
+    if (salvo.tipo === 'pos') document.querySelector('input[name="tipo"][value="pos"]').checked = true;
+    atualizarTipo();
 
     const aoMudar = (e) => {
+      if (e.target.name === 'tipo') atualizarTipo();
       const alvo = document.querySelector(`[data-erro="${e.target.id}"]`);
       if (alvo) alvo.textContent = '';
-      salvarLocal({ nome: $('#nome').value, curso: sel.value });
+      salvarLocal({
+        nome: $('#nome').value,
+        curso: sel.value,
+        tipo: ehPos() ? 'pos' : 'graduacao',
+        especializacao: $('#especializacao').value,
+      });
       agendarDesenho();
     };
     $('#form-arte').addEventListener('input', aoMudar);

@@ -316,13 +316,15 @@
   function calcularLayoutTextos(ctx, A, dados) {
     const T = A.textos;
     const fontesProntas = document.fonts ? document.fonts.status : '';
-    const chave = JSON.stringify([dados.curso, dados.nome, dados.polo, T, fontesProntas]);
+    // dados.rotulo permite trocar "ESTUDANTE DE" (ex.: "ESPECIALIZAÇÃO EM" na página só de arte)
+    const rotulo = dados.rotulo || T.rotulo;
+    const chave = JSON.stringify([dados.curso, dados.nome, dados.polo, rotulo, dados.cursoReserva, T, fontesProntas]);
     if (cacheLayout.chave === chave) return cacheLayout.valor;
 
     const itens = [];
     const tamRotulo = 46;
     ctx.font = fonte(700, tamRotulo);
-    itens.push({ tipo: 'rotulo', texto: T.rotulo, tam: tamRotulo, peso: 700, h: alturaMaiuscula(ctx), antes: 0 });
+    itens.push({ tipo: 'rotulo', texto: rotulo, tam: tamRotulo, peso: 700, h: alturaMaiuscula(ctx), antes: 0 });
 
     let fixo = itens[0].h;
     const extras = [];
@@ -341,7 +343,7 @@
 
     const antesCurso = 40;
     const disponivel = T.base - T.topo - fixo - antesCurso;
-    const curso = (dados.curso || 'SEU CURSO').toUpperCase();
+    const curso = (dados.curso || dados.cursoReserva || 'SEU CURSO').toUpperCase();
     const bloco = ajustarBloco(ctx, curso, T.larguraMax, Math.max(disponivel, 120), 124, 54, 3, 900);
     ctx.font = fonte(900, bloco.tam);
     const capCurso = alturaMaiuscula(ctx);

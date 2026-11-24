@@ -182,6 +182,7 @@ window.CONFIG = {
       base: 1590,
       larguraMax: 940,
       rotulo: 'ESTUDANTE DE',
+      rotuloPos: 'ESPECIALIZAÇÃO EM', // usado na página só de arte, opção Pós-Graduação
       mostrarNome: true,
       mostrarPolo: true,
     },
